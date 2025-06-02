@@ -1,0 +1,84 @@
+.productslider {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    .swiper-wrapper {
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        color: #A8D5BA;
+        width: 43px;
+        height: 82px;
+        transition: all 0.2s;
+    }
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+        font-size: 5rem;
+    }
+
+    .swiper-button-prev {
+        left: 40px;
+        transform: translateX(-200%);
+    }
+
+    .swiper-button-next {
+        right: 40px;
+        transform: translateX(200%);
+    }
+    
+    // Показать стрелки при наведении на слайдер (в целом, на слайдер)
+    &:hover .swiper-button-prev,
+    &:hover .swiper-button-next {
+        transform: translateX(0);
+    }
+
+    &:hover .swiper-slide-active .productslider__item-image {
+        transform: scale(1.05);
+    }
+
+    &:hover .productslider__item-overlay {
+        opacity: 1;
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    &:hover .productslider__item-capture {
+        transform: scale(4);
+        color: #A8D5BA;
+    }
+
+    &__item {
+        height: 500px;
+
+        &-capture {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        &-image {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: inline-block;
+        }
+
+        &-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 1;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.25rem;
+            font-weight: 500;
+            text-align: center;
+            padding: 1rem;
+        }
+    }
+}

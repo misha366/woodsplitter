@@ -1,0 +1,50 @@
+services:
+  test:
+    build:
+      context: .
+      dockerfile: dockerfiles/test.Dockerfile
+    volumes:
+      - ./src:/var/www/laravel
+    environment:
+      APP_KEY: base64:gZ5ZbMuQ7sR7gB0yNso9gf02ZrF+XvNO+aK8lZxMyZw=
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: test
+      DB_USERNAME: root
+      DB_PASSWORD: test
+      CACHE_DRIVER: array
+      SESSION_DRIVER: array
+      QUEUE_DRIVER: sync
+      MAIL_MAILER: array
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3316:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: test
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 0s
+
+  composer:
+    build:
+      context: dockerfiles
+      dockerfile: composer.Dockerfile
+    volumes:
+      - ./src:/var/www/laravel
+
+
+volumes:
+  db_data:
+  

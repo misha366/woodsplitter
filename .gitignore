@@ -1,0 +1,7 @@
+nginx/nginx.conf
+mysql/mysql.env
+ssl/
+
+pats.txt
+ssh-key
+ssh-key.pub

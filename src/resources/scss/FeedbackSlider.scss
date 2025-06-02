@@ -1,0 +1,40 @@
+.feedback {
+
+    .swiper-slide {
+        height: auto;
+    }
+    &__item {
+        // padding: 20px;
+        height: 100%;
+        justify-content: space-between;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -25px; // 20 между слайдами + 5 паддинга в слайдах = 25 для линии по центру
+            width: 1px;
+            background-color: #F9FAF9;
+        }
+
+        &-bottom {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        &-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+}
+

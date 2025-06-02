@@ -1,0 +1,44 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Connect via SSH and execute all tasks
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+
+            cd /var/www/your-app
+            
+            docker compose run --rm artisan down
+
+            docker compose down
+            
+            git pull origin master
+            
+            docker compose build
+            
+            docker compose up nginx -d
+
+            docker compose run --rm composer install --no-dev --optimize-autoloader
+
+            docker compose run --rm artisan migrate --force
+
+            docker compose run --rm artisan optimize:clear
+            docker compose run --rm artisan optimize
+      
+            docker compose run --rm front.npm i
+            docker compose run --rm front.npm run build
+
+            docker compose run --rm artisan up

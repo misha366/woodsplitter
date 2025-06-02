@@ -1,0 +1,31 @@
+name: CI laravel
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build docker
+        run: docker compose -f docker-compose.ci.yml build
+
+      - name: Install composer dependencies
+        run: docker compose -f docker-compose.ci.yml run --rm composer install --optimize-autoloader
+
+      - name: Check codestyle
+        run: docker compose -f docker-compose.ci.yml run --rm test sh -c "./vendor/bin/pint --test"
+
+      - name: Install frontend dependencies
+        run: docker compose -f docker-compose.ci.yml run --rm test sh -c "npm i"
+
+      - name: Build frontend
+        run: docker compose -f docker-compose.ci.yml run --rm test sh -c "npm run build"
+
+      - name: Run tests
+        run: docker compose -f docker-compose.ci.yml run --rm test
