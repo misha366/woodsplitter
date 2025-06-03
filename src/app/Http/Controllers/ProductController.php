@@ -6,18 +6,18 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
+use Inertia\Response;
 
 class ProductController extends Controller
 {
-    public function index() : JsonResponse {
+    public function index() : Response {
         $products = Product::all();
-        return response()->json($products);
-        // return Inertia::render('Catalog', [
-        //     'products' => $products
-        // ]);
+        return Inertia::render('Catalog', [
+            'products' => $products
+        ]);
     }
 
-    public function show(Product $product) : InertiaResponse {
+    public function show(Product $product) : Response {
         return Inertia::render('SingleProduct', [
             'product' => $product
         ]);
