@@ -14,10 +14,21 @@ import preloader4 from './assets/4.gif';
 
 import '../../../scss/MainLayout.scss';
 
-const routeTitles: Record<string, string> = {
-    '/': 'Main',
-    '/about': 'About',
-} as const;
+const routeTitlesMap: { pattern: RegExp; title: string }[] = [
+    { pattern: /^\/$/, title: 'Main' },
+    { pattern: /^\/cart$/, title: 'Cart' },
+    { pattern: /^\/catalog$/, title: 'Catalog' },
+    { pattern: /^\/catalog\/[^/]+$/, title: 'Product' }, // одноуровневые продукты
+    { pattern: /^\/checkout$/, title: 'Checkout' },
+    { pattern: /^\/login$/, title: 'Login' },
+    { pattern: /^\/register$/, title: 'Register' },
+    { pattern: /^\/profile$/, title: 'Profile' },
+];
+
+const getTitleByUrl = (url: string): string => {
+    const found = routeTitlesMap.find(({ pattern }) => pattern.test(url));
+    return found ? found.title : null;
+};
 
 const preloaders: string[] = [preloader1, preloader2, preloader3, preloader4];
 
@@ -25,10 +36,10 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
     const { url } = usePage();
     const [startTransition, setStartTransition] = useState<boolean>(false);
-    const [title, setTitle] = useState<string>(routeTitles[url]);
+    const [title, setTitle] = useState<string>(getTitleByUrl(url));
     const [hidePreloaderTitle, setHidePreloaderTitle] = useState<boolean>(false);
     const [currentPreloader, setCurrentPreloader] = useState<string>(preloaders[Math.floor(Math.random() * preloaders.length)]);
-    
+
 
     const menuRef = useRef<HTMLDivElement>(null);
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true);
@@ -37,7 +48,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         // for transition
         const startunsubscribe = Inertia.on('start', (e: any) => {
-            setTitle(routeTitles[e.detail.visit.url.pathname as string]);
+            setTitle(getTitleByUrl(e.detail.visit.url.pathname as string));
             setHidePreloaderTitle(false);
             setStartTransition(true);
             setCurrentPreloader(preloaders[Math.floor(Math.random() * preloaders.length)]);
@@ -67,7 +78,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
         // @ts-ignore
         setMenuWidth(menuRef.current?.currentWidth);
     }, []);
-    
+
     return (
         <div>
             <header className="header">
@@ -75,20 +86,20 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                     {/* Чтобы закрывалась именно навигация у лого должен быть min-width! */}
                     {/* Так же у навигации должен быть overflow: hidden, чтобы контент не выходил за рамки */}
                     {/*
-                    
+
                         Почему получается такой эффект, почему хватает просто сжать весь контейнер до 35px?
                         1) когда мы сжимаем его, элементы начинают между собой делить пространство, очевидно что всё пространство
                         будет занимать навигация, а нам надо наборот, чтобы всё место занимало лого 35 пиксей.
                         Чтобы достигать этого эффекта я ставлю min-width: 35px, чтобы в любом случае лого занимало отведённое ему место.
 
                         В момент когда мы установили лого оно УЖЕ находится на нужном месте, но из-за того что навигация рендерится,
-                        она вытесняет лого, хотя сама равна по ширине 0, ПОТОМУ ЧТО общее место 35px - MIN WIDTH от лого 35 пикслей = 
+                        она вытесняет лого, хотя сама равна по ширине 0, ПОТОМУ ЧТО общее место 35px - MIN WIDTH от лого 35 пикслей =
                         0 пикселей на ширину навигации. Поэтому теперь нам для навигации надо установить overflow: hidden,
                         чтобы она не рендерилась и не выталкивала лого.
 
                         Последний штрих - white-space: nowrap; для контейнера - проблема в том, что текст будет сжиматься во время анимаций
                         по уменьшению ширины контейнера, чтобы этого избежать я ставлю white-space: nowrap;
-                    
+
                     */}
                     {<motion.div ref={menuRef} className={`header__container`}
                         animate={{ width: isMenuOpen ? menuWidth : '35px' }}
@@ -103,7 +114,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                                     initial="rest"
                                     animate="rest">
                                 <Link href="/" className="header__nav-link">Home</Link>
-                                <motion.div className="header__nav-underline" variants={{ 
+                                <motion.div className="header__nav-underline" variants={{
                                     rest: { scaleX: 0 },
                                     hover: { scaleX: 1 }
                                 }}
@@ -115,7 +126,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                                 initial="rest"
                                 animate="rest">
                                 <Link href="/about" className="header__nav-link">About</Link>
-                                <motion.div className="header__nav-underline" variants={{ 
+                                <motion.div className="header__nav-underline" variants={{
                                     rest: { scaleX: 0 },
                                     hover: { scaleX: 1 }
                                 }}
@@ -127,7 +138,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                                 initial="rest"
                                 animate="rest">
                                 <Link href="/" className="header__nav-link">Catalog</Link>
-                                <motion.div className="header__nav-underline" variants={{ 
+                                <motion.div className="header__nav-underline" variants={{
                                     rest: { scaleX: 0 },
                                     hover: { scaleX: 1 }
                                     }}
@@ -139,7 +150,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                                 initial="rest"
                                 animate="rest">
                                 <Link href="/" className="header__nav-link">Sign Up</Link>
-                                <motion.div className="header__nav-underline" variants={{ 
+                                <motion.div className="header__nav-underline" variants={{
                                     rest: { scaleX: 0 },
                                     hover: { scaleX: 1 }
                                 }}
@@ -152,7 +163,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
             </header>
 
             <AnimatePresence>
-            
+
                 {/* {true && <motion.div */}
                 {startTransition && <motion.div
                     className="transitionContainer"
@@ -184,9 +195,23 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                     />
                 </motion.div>}
             </AnimatePresence>
-            
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    gap: '10px'
+                }}>
+                <Link href="/cart">Cart</Link>
+                <Link href="/catalog">catalog</Link>
+                <Link href="/checkout">checkout</Link>
+                <Link href="/login">login</Link>
+                <Link href="/register">register</Link>
+                <Link href="/">main</Link>
+                <Link href="/profile">profile</Link>
+                <Link href="/catalog/1">single product</Link>
+            </div>
             {children}
-        
+
             <footer className="footer">
                 <div className="container">
                     <div className="row">
