@@ -80,7 +80,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     return (
-        <div>
+        <>
             <header className="header">
                 <AnimatePresence>
                     {/* Чтобы закрывалась именно навигация у лого должен быть min-width! */}
@@ -137,7 +137,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                                 whileHover="hover"
                                 initial="rest"
                                 animate="rest">
-                                <Link href="/" className="header__nav-link">Catalog</Link>
+                                <Link href="/catalog" className="header__nav-link">Catalog</Link>
                                 <motion.div className="header__nav-underline" variants={{
                                     rest: { scaleX: 0 },
                                     hover: { scaleX: 1 }
@@ -199,10 +199,12 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 style={{
                     display: 'flex',
                     justifyContent: 'flex-end',
-                    gap: '10px'
+                    gap: '10px',
+                    position: 'fixed',
+                    bottom: '30px',
+                    right: '30px'
                 }}>
                 <Link href="/cart">Cart</Link>
-                <Link href="/catalog">catalog</Link>
                 <Link href="/checkout">checkout</Link>
                 <Link href="/login">login</Link>
                 <Link href="/register">register</Link>
@@ -210,7 +212,10 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 <Link href="/profile">profile</Link>
                 <Link href="/catalog/1">single product</Link>
             </div>
-            {children}
+
+            <div className="page-content">
+                {children}
+            </div>
 
             <footer className="footer">
                 <div className="container">
@@ -229,6 +234,6 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                     </div>
                 </div>
             </footer>
-        </div>
+        </>
     );
 };

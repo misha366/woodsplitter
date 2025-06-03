@@ -13,7 +13,7 @@ import { Link } from "@inertiajs/inertia-react";
 
 import feedbacks from "./assets/feedbacks";
 
-function Main(props) {  
+function Main(props) {
   return <>
       <div className="firstfullscreen">
         <video src={firstfullscreenBackground} muted autoPlay playsInline loop
@@ -25,7 +25,7 @@ function Main(props) {
               <p className="firstfullscreen__subtitle">Wooden Furniture Workshop</p>
             </div>
           </div>
-          <div className="row">            
+          <div className="row">
             <div className="col-12 col-md-6 col-lg-3 firstfullscreen__counter">
                 <span className="firstfullscreen__counter-number">
                     <Counter from={0} to={500} duration={2.5} />+
@@ -128,8 +128,8 @@ function Main(props) {
           </div>
         </div>
         <ProductSlider products={[
-          {id: 1, title: 'Дубовая кровать', image: '/assets/slide1.jpg'}, 
-          {id: 2, title: 'Тубма из клёна', image: '/assets/slide2.jpg'}, 
+          {id: 1, title: 'Дубовая кровать', image: '/assets/slide1.jpg'},
+          {id: 2, title: 'Тубма из клёна', image: '/assets/slide2.jpg'},
           {id: 3, title: 'Шкаф из дуба', image: '/assets/slide3.jpg'},
           {id: 4, title: 'Стул из берёзы', image: '/assets/slide4.jpg'},
         ]} />
@@ -168,14 +168,6 @@ function Main(props) {
             </div>
           </div>
         </div>
-        {/* <FeedbackSlider feedbacks={
-          Array.from({ length: 15 }).map((_, i) => ({
-            id: i + 1,
-            name: `User ${i + 1}`,
-            feedback: `This is feedback number ${i + 1}. I love this product!`,
-            photo: `/assets/slide1.jpg`
-          }))
-        } /> */}
         <FeedbackSlider feedbacks={feedbacks} />
       </div>
     </>;

@@ -1,6 +1,6 @@
 .firstfullscreen {
     min-height: 100vh;
-    background-image: 
+    background-image:
             linear-gradient(35deg, rgba(0, 0, 0, .6) 50%, rgba(28, 28, 30, .6) 100%) !important;
     color: #F9FAF9;
     position: relative;
@@ -55,7 +55,7 @@
         margin-top: 40px;
         margin-bottom: 40px;
         text-align: center;
-        
+
         &-link {
             display: inline-block;
             text-decoration: none;
@@ -112,7 +112,7 @@
 
 .products {
     background-color: #A8D5BA;
-    
+
     &__title {
         margin-bottom: 60px;
         margin-top: 60px;
@@ -136,7 +136,7 @@
         flex-direction: column;
         justify-content: center;
         margin-bottom: 20px;
-        
+
         &-directly {
             color: #8e8e93;
         }
@@ -159,7 +159,7 @@
 
     &__title {
         margin-top: 0;
-        margin-bottom: 20px;
+        margin-bottom: 60px;
         font-size: 3rem;
         text-align: center;
     }

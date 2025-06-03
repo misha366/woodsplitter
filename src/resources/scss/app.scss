@@ -11,13 +11,24 @@ $primary-color: #A8D5BA;
 $secondary-color: #7A9E87;
 $accent-color: #D6C3A3;
 
-body {
+body, html {
     font-family: "Inter", sans-serif;
     font-weight: 300;
     color: #1c1c1e;
     background-color: #F9FAF9;
     margin: 0;
     padding: 0;
+    height: 100%;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .page-content {
+        flex-grow: 1;
+    }
 }
 
 .subtext {

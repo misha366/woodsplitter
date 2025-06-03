@@ -22,10 +22,10 @@ class ProductFactory extends Factory
             'description' => $this->faker->paragraph,
             'price_usd' => $this->faker->randomFloat(2, 10, 100),
             'images' => json_encode([
-                $this->faker->imageUrl,
-                $this->faker->imageUrl,
-                $this->faker->imageUrl,
-                $this->faker->imageUrl
+                'https://placehold.co/640x480',
+                'https://placehold.co/640x480',
+                'https://placehold.co/640x480',
+                'https://placehold.co/640x480'
             ]),
         ];
     }

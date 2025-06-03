@@ -11,9 +11,8 @@ use Inertia\Response;
 class ProductController extends Controller
 {
     public function index() : Response {
-        $products = Product::all();
         return Inertia::render('Catalog', [
-            'products' => $products
+            'products' => Product::orderBy('id', 'desc')->get()
         ]);
     }
 
