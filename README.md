@@ -1,3 +1,5 @@
+['pending', 'processing', 'shipped', 'delivered', 'cancelled']
+
 проект на
 ларавел + реакт + инертиа + редакс
 

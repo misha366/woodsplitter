@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\CartItem;
 use App\Models\OrderItem;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
     use SoftDeletes;
+    use HasFactory;
 
     public function cartItems(): HasMany {
         return $this->hasMany(CartItem::class);
