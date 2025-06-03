@@ -13,11 +13,7 @@ import { Link } from "@inertiajs/inertia-react";
 
 import feedbacks from "./assets/feedbacks";
 
-function Main(props) {
-
-  const firstfullscreenBackgroundRef = useRef(null);
-
-  
+function Main(props) {  
   return <>
       <div className="firstfullscreen">
         <video src={firstfullscreenBackground} muted autoPlay playsInline loop

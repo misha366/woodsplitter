@@ -15,11 +15,11 @@ const FeedbackSlider = ({ feedbacks }: { feedbacks: any[] }) => {
             spaceBetween={40}
             loop={true}
             speed={8000}
-            // autoplay={{
-            //     delay: 0,
-            //     disableOnInteraction: false,
-            //     pauseOnMouseEnter: true,
-            // }}
+            autoplay={{
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            }}
             grabCursor={true}
             allowTouchMove={true}
         >

@@ -74,3 +74,44 @@ Videezy
 Телефон, WhatsApp, Telegram
 Почта
 Кнопка "Оставить заявку" или "Связаться"
+
+------------------------------
+## Models
+### products - продукты
+id
+title
+description
+price_usd
+images(json arr with paths)
+
+### global cart
+id
+user_id - many-to-one - показывает чъего юзера этот пункт
+product_id - many-to-one - показывает что за продукт
+quantity
+
+### basket item
+id
+basket_id - fk many to one - ссылается на корзину, которой принадлежит
+product_id - fk many to one - ссылается на продукт, который есть в корзине
+quantity - кол-во выбранного продукта
+
+### order
+id
+user_id - many to one - какому юзеру принадлежит заказ
+
+
+
+### upd user - инфа для заказов (необязательная)
+Name
+Surname
+Number
+Email
+
+Если во время cartService->store() Auth::check() даёт тру = сохраняем в cartitems; если нет:
+```php
+session()->put('cart', [
+    ['product_id' => N, 'quantity' => N],
+]);
+```
+Абсолютно аналогичный механизм и для ретрива, если чек даёт фалс - ретрив с сессии, если тру - с cartitems

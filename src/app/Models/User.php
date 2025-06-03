@@ -6,11 +6,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\CartItem;
+use App\Models\Order;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
+    public function cartItems(): HasMany {
+        return $this->hasMany(CartItem::class);
+    }
+
+    public function orders(): HasMany {
+        return $this->hasMany(Order::class);
+    }
 
     /**
      * The attributes that are mass assignable.
