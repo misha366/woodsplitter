@@ -21,7 +21,6 @@ return new class extends Migration
 
             // remember order info
             $table->string('fullname')->nullable();
-            $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('city')->nullable();
             $table->string('country')->nullable();
