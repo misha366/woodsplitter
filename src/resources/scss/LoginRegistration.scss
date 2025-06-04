@@ -1,0 +1,34 @@
+.authpage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    &__form {
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &-title {
+            font-size: 3rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        &-email, &-password {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        &-links {
+            margin-top: 60px;
+            display: flex;
+            gap: 20px;
+        }
+    }
+}
+
+.auth-toast {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -7,9 +7,12 @@ import {Link, usePage} from "@inertiajs/inertia-react";
 import Masonry from 'masonry-layout';
 
 const Catalog = () => {
-    const { products } = usePage().props;
+    const { products, auth } = usePage().props;
 
     const rowRef = useRef(null);
+
+    // @ts-ignore
+    console.log(auth);
 
     useEffect(() => {
         if (rowRef.current) {

@@ -13,6 +13,7 @@ import preloader3 from './assets/3.gif';
 import preloader4 from './assets/4.gif';
 
 import '../../../scss/MainLayout.scss';
+import {ToastContainer} from "react-toastify";
 
 const routeTitlesMap: { pattern: RegExp; title: string }[] = [
     { pattern: /^\/$/, title: 'Main' },
@@ -81,6 +82,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <>
+            <ToastContainer position="top-right" autoClose={5000} />
             <header className="header">
                 <AnimatePresence>
                     {/* Чтобы закрывалась именно навигация у лого должен быть min-width! */}
