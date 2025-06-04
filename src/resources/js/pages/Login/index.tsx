@@ -20,24 +20,19 @@ const Login = () => {
                 console.log('e', e);
                 console.log('errors', errors);
                 // @ts-ignore
-                Object.values(e).flat().forEach(msg => toast.error(msg));
+                Object.values(e).flat().forEach(msg => toast.error(msg, {
+                    className: 'woodsplitter-toast',
+                }));
             },
             onSuccess: () => {
-                toast.success('You are logged in successfully');
+                toast.success('You are logged in successfully', {
+                    className: 'woodsplitter-toast',
+                });
             }
         });
     };
 
-    const hideHeaderFooter = `
-        // На страницах аутентификации не должно быть хедера и футера, но я не могу удалить
-        // лейаут мейн тк там анимации перехода. Поэтому хедер и футер я просто сркываю
-        header, footer {
-            display: none;
-        }
-    `;
-
     return <div className="authpage">
-        <style>{hideHeaderFooter}</style>
         <form onSubmit={submit} className="authpage__form">
             <h1 className="authpage__form-title">Login</h1>
             <input type="hidden" name="_token" value={csrfToken} />
@@ -69,6 +64,6 @@ const Login = () => {
     </div>;
 };
 
-Login.layout = (page: React.ReactNode) => <MainLayout>{page}</MainLayout>;
+Login.layout = (page: React.ReactNode) => <MainLayout hideHeaderFooter>{page}</MainLayout>;
 
 export default Login;

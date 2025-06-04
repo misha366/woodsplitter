@@ -79,3 +79,11 @@ button:focus-visible {
     outline: 3px solid $primary-color;
 }
 
+.woodsplitter-toast {
+    background-color: #F9FAF9 !important;
+    color: #1c1c1e !important;
+}
+
+.woodsplitter-toast .Toastify__toast-icon {
+    color: #1c1c1e !important;
+}

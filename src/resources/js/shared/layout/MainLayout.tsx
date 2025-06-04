@@ -31,9 +31,12 @@ const getTitleByUrl = (url: string): string => {
     return found ? found.title : null;
 };
 
+// @ts-ignore
 const preloaders: string[] = [preloader1, preloader2, preloader3, preloader4];
 
-export const MainLayout = ({ children }: { children: React.ReactNode }) => {
+export const MainLayout = ({ children, hideHeaderFooter = false }: { children: React.ReactNode }) => {
+
+    const { auth } = usePage().props;
 
     const { url } = usePage();
     const [startTransition, setStartTransition] = useState<boolean>(false);
@@ -41,10 +44,9 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
     const [hidePreloaderTitle, setHidePreloaderTitle] = useState<boolean>(false);
     const [currentPreloader, setCurrentPreloader] = useState<string>(preloaders[Math.floor(Math.random() * preloaders.length)]);
 
-
-    const menuRef = useRef<HTMLDivElement>(null);
-    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true);
-    const [menuWidth, setMenuWidth] = useState<number>(0);
+    // const menuRef = useRef<HTMLDivElement>(null);
+    // const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true);
+    // const [menuWidth, setMenuWidth] = useState<number>(0);
 
     useEffect(() => {
         // for transition
@@ -65,25 +67,31 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
         });
 
         // for menu
-        const handleScroll = () => setTimeout(() => setIsMenuOpen(false), 300);
-        window.addEventListener('scroll', handleScroll);
+        // const handleScroll = () => setTimeout(() => setIsMenuOpen(false), 300);
+        // window.addEventListener('scroll', handleScroll);
         return () => {
             startunsubscribe();
             finishunsubscribe();
-
-            window.removeEventListener('scroll', handleScroll);
+        //
+        //     window.removeEventListener('scroll', handleScroll);
         };
     }, []);
 
-    useLayoutEffect(() => {
-        // @ts-ignore
-        setMenuWidth(menuRef.current?.currentWidth);
-    }, []);
+    // useLayoutEffect(() => {
+    //     // @ts-ignore
+    //     setMenuWidth(menuRef.current?.currentWidth);
+    // }, []);
 
     return (
         <>
-            <ToastContainer position="top-right" autoClose={5000} />
-            <header className="header">
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                draggable
+                pauseOnHover
+                closeOnClick
+            />
+            {!hideHeaderFooter && <header className="header">
                 <AnimatePresence>
                     {/* Чтобы закрывалась именно навигация у лого должен быть min-width! */}
                     {/* Так же у навигации должен быть overflow: hidden, чтобы контент не выходил за рамки */}
@@ -103,36 +111,22 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                         по уменьшению ширины контейнера, чтобы этого избежать я ставлю white-space: nowrap;
 
                     */}
-                    {<motion.div ref={menuRef} className={`header__container`}
-                        animate={{ width: isMenuOpen ? menuWidth : '35px' }}
-                        transition={{ duration: 0.2 }}
-                        onHoverStart={() => setIsMenuOpen(true)}>
-                            <motion.div
-                                className="header__nav"
-                            >
-                                <motion.div
-                                    className="header__nav-linkwrapper"
-                                    whileHover="hover"
-                                    initial="rest"
-                                    animate="rest">
-                                <Link href="/" className="header__nav-link">Home</Link>
-                                <motion.div className="header__nav-underline" variants={{
-                                    rest: { scaleX: 0 },
-                                    hover: { scaleX: 1 }
-                                }}
-                                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}></motion.div>
-                            </motion.div>
+                    {/*<motion.div ref={menuRef} className={`header__container`}*/}
+                    <div className={`header__container`}>
+                        <motion.div
+                            className="header__nav"
+                        >
                             <motion.div
                                 className="header__nav-linkwrapper"
                                 whileHover="hover"
                                 initial="rest"
                                 animate="rest">
-                                <Link href="/about" className="header__nav-link">About</Link>
+                                <Link href="/" className="header__nav-link">Main</Link>
                                 <motion.div className="header__nav-underline" variants={{
-                                    rest: { scaleX: 0 },
-                                    hover: { scaleX: 1 }
+                                    rest: {scaleX: 0},
+                                    hover: {scaleX: 1}
                                 }}
-                                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}></motion.div>
+                                            transition={{duration: 0.4, ease: [0.4, 0, 0.2, 1]}}></motion.div>
                             </motion.div>
                             <motion.div
                                 className="header__nav-linkwrapper"
@@ -141,28 +135,59 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                                 animate="rest">
                                 <Link href="/catalog" className="header__nav-link">Catalog</Link>
                                 <motion.div className="header__nav-underline" variants={{
-                                    rest: { scaleX: 0 },
-                                    hover: { scaleX: 1 }
-                                    }}
-                                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}></motion.div>
+                                    rest: {scaleX: 0},
+                                    hover: {scaleX: 1}
+                                }}
+                                            transition={{duration: 0.4, ease: [0.4, 0, 0.2, 1]}}></motion.div>
                             </motion.div>
-                            <motion.div
+
+                            {auth.user === null && <motion.div
                                 className="header__nav-linkwrapper"
                                 whileHover="hover"
                                 initial="rest"
                                 animate="rest">
-                                <Link href="/" className="header__nav-link">Sign Up</Link>
+                                <Link href="/login" className="header__nav-link">Sign In</Link>
                                 <motion.div className="header__nav-underline" variants={{
-                                    rest: { scaleX: 0 },
-                                    hover: { scaleX: 1 }
+                                    rest: {scaleX: 0},
+                                    hover: {scaleX: 1}
                                 }}
-                                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}></motion.div>
-                                </motion.div>
-                            </motion.div>
+                                            transition={{duration: 0.4, ease: [0.4, 0, 0.2, 1]}}></motion.div>
+                            </motion.div>}
+
+
+                            {auth.user !== null && <motion.div
+                                className="header__nav-linkwrapper"
+                                whileHover="hover"
+                                initial="rest"
+                                animate="rest">
+                                <Link href="/profile" className="header__nav-link">Profile</Link>
+                                <motion.div className="header__nav-underline" variants={{
+                                    rest: {scaleX: 0},
+                                    hover: {scaleX: 1}
+                                }}
+                                            transition={{duration: 0.4, ease: [0.4, 0, 0.2, 1]}}></motion.div>
+                            </motion.div>}
+
+                            {auth.user !== null && <motion.div
+                                className="header__nav-linkwrapper"
+                                whileHover="hover"
+                                initial="rest"
+                                animate="rest">
+                                <Link
+                                    href="/"
+                                    className="header__nav-link"
+                                >Logout</Link>
+                                <motion.div className="header__nav-underline" variants={{
+                                    rest: {scaleX: 0},
+                                    hover: {scaleX: 1}
+                                }}
+                                            transition={{duration: 0.4, ease: [0.4, 0, 0.2, 1]}}></motion.div>
+                            </motion.div>}
+                        </motion.div>
                         <div className="header__logo"></div>
-                    </motion.div>}
+                    </div>
                 </AnimatePresence>
-            </header>
+            </header>}
 
             <AnimatePresence>
 
@@ -219,7 +244,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 {children}
             </div>
 
-            <footer className="footer">
+            {!hideHeaderFooter && <footer className="footer">
                 <div className="container">
                     <div className="row">
                         <div className="col-12 col-md-3">
@@ -227,15 +252,17 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                         </div>
                         <div className="col-12 col-md-4">
                             <div className="footer__info">
-                                <span className="footer__info-item">2025 Woodsplitter Workshop, All rights reserved</span>
+                                <span
+                                    className="footer__info-item">2025 Woodsplitter Workshop, All rights reserved</span>
                                 <span className="footer__info-item">+380 987 77 6767</span>
                                 <span className="footer__info-item">We are always happy to hear from you - feel free to reach out by phone or email! 😉</span>
-                                <a href="mailto:info@woodsplitterworkshop.com" className="footer__info-item">info@woodsplitterworkshop.com</a>
+                                <a href="mailto:info@woodsplitterworkshop.com"
+                                   className="footer__info-item">info@woodsplitterworkshop.com</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </footer>
+            </footer>}
         </>
     );
 };
