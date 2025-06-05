@@ -46,6 +46,7 @@ h3 {
 }
 
 input, textarea {
+    box-sizing: border-box;
     font-family: "Inter", sans-serif;
     font-weight: 300;
     color: #1c1c1e;

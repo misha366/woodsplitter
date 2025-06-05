@@ -12,7 +12,7 @@
 Фишки - фон блюр + кружочек за мышкой + переходы как из барбы жс
 
 
-!!! ВНИМАНИЕ я скачал фрамер моушн, swiper, mansory-layout, react-toastify
+!!! ВНИМАНИЕ я скачал фрамер моушн, swiper, mansory-layout, react-toastify, @headlessui/react
 
 ### ОБЯЗАТЕЛЬНО ЗАЮЗАТь
 https://motion.dev/docs/react-animation#svg-line-drawing

@@ -9,16 +9,15 @@ use App\Http\Controllers\CheckoutController;
 Route::get('/', fn () => Inertia::render('Main'));
 // Route::post('/contact', [ContactController::class, 'contact']);
 
+// сделать order контроллер, к которому можно будет обратится только если
+// это твой ордер
+
+
 // temp
 Route::get('/about', fn () => Inertia::render('About'));
 
-// Authorization - потом обработать с фортифаем
-// Route::get('/login', fn () => Inertia::render('Login'))->name('login');
-// Route::get('/register', fn () => Inertia::render('Register'))->name('register');
 Route::middleware(['auth'])->group(function () {
-    // Добавить контроллер
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
-    // Route::put('/user/profile-information', [ProfileController::class, 'update'])->profile('profile.update');
+    Route::get('/profile', fn () => Inertia::render('Profile'))->name('profile.show');
 });
 
 // Catalog

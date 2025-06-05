@@ -2,7 +2,7 @@ import React, { useLayoutEffect } from "react";
 import { useEffect, useState, useRef } from "react";
 import { Inertia } from "@inertiajs/inertia";
 import { Link, usePage } from "@inertiajs/inertia-react";
-import { AnimatePresence, motion, transform } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 // @ts-ignore
 import preloader1 from './assets/1.gif';
 // @ts-ignore
@@ -24,6 +24,8 @@ const routeTitlesMap: { pattern: RegExp; title: string }[] = [
     { pattern: /^\/login$/, title: 'Login' },
     { pattern: /^\/register$/, title: 'Register' },
     { pattern: /^\/profile$/, title: 'Profile' },
+    { pattern: /^\/user\/profile\-information$/, title: 'Updating...' },
+    { pattern: /^\/logout$/, title: 'Logout' },
 ];
 
 const getTitleByUrl = (url: string): string => {
@@ -154,6 +156,20 @@ export const MainLayout = ({ children, hideHeaderFooter = false }: { children: R
                                             transition={{duration: 0.4, ease: [0.4, 0, 0.2, 1]}}></motion.div>
                             </motion.div>}
 
+                            
+                            {auth.user === null && <motion.div
+                                className="header__nav-linkwrapper"
+                                whileHover="hover"
+                                initial="rest"
+                                animate="rest">
+                                <Link href="/register" className="header__nav-link">Sign Up</Link>
+                                <motion.div className="header__nav-underline" variants={{
+                                    rest: {scaleX: 0},
+                                    hover: {scaleX: 1}
+                                }}
+                                            transition={{duration: 0.4, ease: [0.4, 0, 0.2, 1]}}></motion.div>
+                            </motion.div>}
+
 
                             {auth.user !== null && <motion.div
                                 className="header__nav-linkwrapper"
@@ -176,6 +192,10 @@ export const MainLayout = ({ children, hideHeaderFooter = false }: { children: R
                                 <Link
                                     href="/"
                                     className="header__nav-link"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        Inertia.post('/logout');
+                                    }}
                                 >Logout</Link>
                                 <motion.div className="header__nav-underline" variants={{
                                     rest: {scaleX: 0},
@@ -197,7 +217,6 @@ export const MainLayout = ({ children, hideHeaderFooter = false }: { children: R
                     initial={{ x: '100%' }}
                     animate={{ x: '0' }}
                     exit={{ x: '-100%' }}
-                    // transition={{ ease: "easeIn", duration: 0.5 }}
                     transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
                 >
                     <motion.h3

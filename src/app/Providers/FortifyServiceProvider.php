@@ -32,7 +32,7 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::loginView(fn () => Inertia::render('Login'));
         Fortify::registerView(fn () => Inertia::render('Register'));
-
+        
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         // Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
@@ -61,9 +61,19 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Inertia::share('errors', function () {
-            return request()->session()->get('errors')
-                    ? request()->session()->get('errors')->getBag('default')->toArray()
-                    : (object) [];
+
+            $errors = session()->get('errors');
+
+            if (!$errors) {
+                return [];
+            }
+
+            return collect($errors->getBags())
+                ->flatMap(function ($bag) {
+                    return collect($bag->all());
+                })
+                ->values()
+                ->all();
         });
     }
 }

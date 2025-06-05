@@ -17,8 +17,6 @@ const Login = () => {
         e.preventDefault();
         post('/login', {
             onError: (e) => {
-                console.log('e', e);
-                console.log('errors', errors);
                 // @ts-ignore
                 Object.values(e).flat().forEach(msg => toast.error(msg, {
                     className: 'woodsplitter-toast',
@@ -45,7 +43,7 @@ const Login = () => {
             />
             <input
                 type="password"
-                placeholder="*******"
+                placeholder="password"
                 className="authpage__form-password"
                 value={data.password}
                 onChange={e => setData('password', e.target.value)}
