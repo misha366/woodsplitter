@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { MainLayout } from '../../shared/layout/MainLayout';
 import { Link, useForm, usePage } from '@inertiajs/inertia-react';
 import { toast } from 'react-toastify';
@@ -7,7 +8,8 @@ import '../../../scss/Profile.scss';
 
 const Profile = () => {
     const { auth, csrfToken } = usePage().props;
-
+    const [isHoveredOnKeyButton, setIsHoveredOnKeyButton] = useState(false);
+    
     const { data, setData, put, processing, errors } = useForm({
         name: auth.user.name || '',
         email: auth.user.email || '',
@@ -35,8 +37,14 @@ const Profile = () => {
             <h1 className="profile__title">Profile</h1>
             <TabGroup>
                 <TabList className="profile__tabs">
-                    <Tab className={({ selected }) => selected ? 'profile__tabs-tab--active' : 'profile__tabs-tab'}>Profile Info</Tab>
-                    <Tab className={({ selected }) => selected ? 'profile__tabs-tab--active' : 'profile__tabs-tab'}>Orders</Tab>
+                    <Tab className={
+                        ({ selected }) =>
+                            `${selected ? 'profile__tabs-tab--active' : 'profile__tabs-tab'}${isHoveredOnKeyButton ? ' tab-paint-green' : ''}`
+                    }>Profile Info</Tab>
+                    <Tab className={
+                        ({ selected }) =>
+                            `${selected ? 'profile__tabs-tab--active' : 'profile__tabs-tab'}${isHoveredOnKeyButton ? ' tab-paint-green' : ''}`
+                    }>Orders</Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
@@ -45,42 +53,42 @@ const Profile = () => {
                         <input
                             type="name"
                             placeholder="Volodymyr Bocharov Yuriiovych"
-                            className="profile__form-name"
+                            className={`profile__form-name${isHoveredOnKeyButton ? ' paint-border-green' : ''}`}
                             value={data.name}
                             onChange={e => setData('name', e.target.value)}
                         />
                         <input
                             type="email"
                             placeholder="example@gmail.com"
-                            className="profile__form-email"
+                            className={`profile__form-email${isHoveredOnKeyButton ? ' paint-border-green' : ''}`}
                             value={data.email}
                             onChange={e => setData('email', e.target.value)}
                         />
                         <input
                             type="phone"
                             placeholder="phone"
-                            className="profile__form-phone"
+                            className={`profile__form-phone${isHoveredOnKeyButton ? ' paint-border-green' : ''}`}
                             value={data.phone}
                             onChange={e => setData('phone', e.target.value)}
                         />            
                         <input
                             type="city"
                             placeholder="city"
-                            className="profile__form-city"
+                            className={`profile__form-city${isHoveredOnKeyButton ? ' paint-border-green' : ''}`}
                             value={data.city}
                             onChange={e => setData('city', e.target.value)}
                         />
                         <input
                             type="country"
                             placeholder="country"
-                            className="profile__form-country"
+                            className={`profile__form-country${isHoveredOnKeyButton ? ' paint-border-green' : ''}`}
                             value={data.country}
                             onChange={e => setData('country', e.target.value)}
                         />
                         <input
                             type="postal_code"
                             placeholder="postal code"
-                            className="profile__form-postal_code"
+                            className={`profile__form-postal_code${isHoveredOnKeyButton ? ' paint-border-green' : ''}`}
                             value={data.postal_code}
                             onChange={e => setData('postal_code', e.target.value)}
                         />
@@ -88,11 +96,13 @@ const Profile = () => {
                             type="submit"
                             className="profile__form-submit"
                             disabled={processing}
+                            onMouseEnter={() => setIsHoveredOnKeyButton(true)}
+                            onMouseLeave={() => setIsHoveredOnKeyButton(false)}
                         >Update</button>
                     </form>
                     </TabPanel>
                     <TabPanel>
-                        <div className="profile__orders" tabIndex={0}>
+                        <div className={`profile__orders${isHoveredOnKeyButton ? ' paint-border-green' : ''}`} tabIndex={0}>
                             {/* {Array.from({ length: 100 }, (_, i) => i + 1).map(order => (
                                 <Link href={`/orders/${order}`}>
                                     <div className="orders__item">
@@ -102,7 +112,17 @@ const Profile = () => {
                                     </div>
                                 </Link>
                             ))} */}
-                            <h1>No orders yet <br /> -&gt; <Link href="/catalog">Catalog</Link> &#60;-</h1>
+                            <h1 className="profile__orders-noorderstitle">
+                                No orders yet <br />
+                                -&#62;
+                                <Link
+                                    href="/catalog"
+                                    className="profile__orders-noorderslink"
+                                    onMouseEnter={() => setIsHoveredOnKeyButton(true)}
+                                    onMouseLeave={() => setIsHoveredOnKeyButton(false)}
+                                >Catalog</Link>
+                                &#60;-
+                            </h1>
                         </div>
                     </TabPanel>
                 </TabPanels>
