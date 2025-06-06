@@ -16,6 +16,7 @@ import feedbacks from "./assets/feedbacks";
 function Main(props) {
   return <>
       <div className="firstfullscreen">
+        <div className="firstfullscreen__overlay"></div>
         <video src={firstfullscreenBackground} muted autoPlay playsInline loop
           className="w-full h-auto firstfullscreen__video"/>
         <div className="firstfullscreen__container container">

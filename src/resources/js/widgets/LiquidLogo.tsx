@@ -28,7 +28,7 @@ const LiquidLogo = () => {
         const runner = Matter.Runner.create();
         engineRef.current = engine;
 
-        engine.gravity.y = 0.5;
+        engine.gravity.y = 0.8;
 
         const render = Matter.Render.create({
             canvas,
@@ -75,7 +75,7 @@ const LiquidLogo = () => {
             ), // right
         ];
 
-        const droplets = Array.from({ length: 40 }, () =>
+        const droplets = Array.from({ length: 25 }, () =>
             Matter.Bodies.circle(
                 width / 2 + (Math.random() - 0.5) * 30,
                 height / 2 + (Math.random() - 0.5) * 30,
