@@ -1,0 +1,36 @@
+.single {
+
+    padding-bottom: 60px;
+
+    &__title {
+        text-align: center;
+        color: #D6C3A3;
+        font-size: 3rem;
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+
+    &__back {
+        position: fixed;
+        top: 25px;
+        right: 10px;
+        color: #1c1c1e;
+        font-size: 1rem;
+        text-decoration: none;
+
+        transition: opacity .4s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            opacity: 0.5;
+        }
+
+        &-arrow {
+            display: inline-block;
+            transition: transform .4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        &:hover .single__back-arrow {
+            transform: translateX(-2px);
+        }
+    }
+}
