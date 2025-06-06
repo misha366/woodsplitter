@@ -14,6 +14,7 @@ import preloader4 from './assets/4.gif';
 
 import '../../../scss/MainLayout.scss';
 import {ToastContainer} from "react-toastify";
+import LiquidLogo from "../../widgets/LiquidLogo";
 
 const routeTitlesMap: { pattern: RegExp; title: string }[] = [
     { pattern: /^\/$/, title: 'Main' },
@@ -204,7 +205,7 @@ export const MainLayout = ({ children, hideHeaderFooter = false }: { children: R
                                             transition={{duration: 0.4, ease: [0.4, 0, 0.2, 1]}}></motion.div>
                             </motion.div>}
                         </motion.div>
-                        <div className="header__logo"></div>
+                        <LiquidLogo />
                     </div>
                 </AnimatePresence>
             </header>}

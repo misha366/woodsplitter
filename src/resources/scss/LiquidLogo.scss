@@ -1,0 +1,14 @@
+
+.header__logo {
+    height: 35px;
+    width: 35px;
+    border-radius: 10px;
+    border: 2px solid rgba(214, 195, 163, 1);
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+        opacity: 1;
+    }
+}
