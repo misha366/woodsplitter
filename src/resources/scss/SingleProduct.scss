@@ -11,6 +11,7 @@
     }
 
     &__back {
+        z-index: 99;
         position: fixed;
         top: 25px;
         right: 10px;
@@ -33,4 +34,8 @@
             transform: translateX(-2px);
         }
     }
+}
+
+.randomproducts {
+    margin-bottom: 100px;
 }

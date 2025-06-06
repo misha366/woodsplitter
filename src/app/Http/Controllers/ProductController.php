@@ -17,8 +17,14 @@ class ProductController extends Controller
     }
 
     public function show(Product $product) : Response {
+        $random = Product::where('id', '!=', $product->id)
+            ->inRandomOrder()
+            ->limit(10)
+            ->get();
+            
         return Inertia::render('SingleProduct', [
-            'product' => $product
+            'product' => $product,
+            'random' => $random
         ]);
     }
 }

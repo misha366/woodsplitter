@@ -1,0 +1,51 @@
+.randomproduct {
+    height: 310px;
+    user-select: none;
+    text-align: center;
+
+    padding: 10px 0;
+
+    &__wrapper {
+        text-decoration: none;
+        color: #1c1c1e;
+        margin: 0 10px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        transition: box-shadow .4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform .4s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            box-shadow: 0px 0 13px 0 rgba(168, 213, 186, 0.8);
+            transform: scale(1.02);
+        }
+    }
+
+    &__image {
+        img {
+            display: inline-block;
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+    }
+
+    &__title {
+        margin-top: 10px;
+        padding: 0 10px;
+        display: box;
+        display: -moz-box;
+        display: -webkit-box;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        -moz-box-orient: vertical;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    &__price {
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
