@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { MainLayout } from '../../shared/layout/MainLayout';
 import { Link, usePage } from '@inertiajs/inertia-react';
@@ -9,12 +9,15 @@ import { RandomProductsSlider } from '../../widgets/RandomProductsSlider';
 
 const SingleProduct = () => {
     const { product, random } = usePage().props;
+    const [isAddToCartButtonHovered, setIsAddToCartButtonHovered] = useState(false);
 
     return <>
         <div className="container">
             <div className="row">
                 <div className="col-12 single__title-wrapper">
-                    <h1 className="single__title">{product.title}</h1>
+                    <h1 className={
+                        `single__title ${isAddToCartButtonHovered ? 'product-title-paint-green' : ''}`
+                    }>{product.title}</h1>
                     <Link className="single__back" href="/catalog">
                         <span className="single__back-arrow">&#60;-</span> Back to catalog
                     </Link>
@@ -33,14 +36,28 @@ const SingleProduct = () => {
                         '/assets/slide2.jpg',
                         '/assets/slide3.jpg',
                     ]} /> */}
-                    <div className="single__addtocart">
-                        <button className="single__addtocart-button">Add to cart</button>
-                    </div>
                 </div>
                 <div className="col-12 col-lg-4">
                     <div className="single__info">
-                        <h2 className="single__info-title">${product.price_usd}</h2>
-                        <p className="single__info-description">{product.description}</p>
+                        <h2 className="single__info-price">${product.price_usd}</h2>
+                        <p
+                            style={{ whiteSpace: 'pre-line' }}
+                            className="single__info-description">
+                                {product.description}
+                                {`Размер: 10
+                                Размер: 10
+                                Размер: 10
+                                Размер: 10
+                                Размер: 10
+                                Размер: 10`}
+                        </p>
+                        <button
+                            className="single__info-button"
+                            onMouseEnter={() => setIsAddToCartButtonHovered(true)}
+                            onMouseLeave={() => setIsAddToCartButtonHovered(false)}
+                        >
+                            Add to cart
+                        </button>
                     </div>
                 </div>
             </div>
