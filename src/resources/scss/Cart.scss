@@ -1,0 +1,137 @@
+.cart__title {
+    h1 {
+        text-align: center;
+        color: #1c1c1e;
+        font-size: 3rem;
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+}
+
+.cart {
+    margin-bottom: 40px;
+
+    &__items {
+        display: flex;
+        flex-direction: column;
+
+        max-height: 400px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+
+        border: 1px solid #ccc;
+        border-radius: 10px;
+
+        padding: 10px;
+    }
+
+    &__item {
+        display: flex;
+
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+
+        &:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        &-image {
+            min-width: 50px;
+            height: 50px;
+            margin-right: 20px;
+            img {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+        }
+
+        &-info {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            a {
+                display: block;
+                text-decoration: none;
+            }
+        }
+
+        &-price {
+            margin-left: 20px;
+            margin-right: 10px;
+            position: relative;
+
+            &:after {
+                content: 'per one';
+                font-size: 10px;
+                position: absolute;
+                bottom: -8px;
+                width: 36px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        &-remove {
+            margin-left: 10px;
+            margin-right: 40px;
+            display: flex;
+            align-items: center;
+            a {
+                user-select: none;
+                text-decoration: none;
+                display: inline-block;
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                &:hover {
+                    transform: scale(1.2);
+                }
+            }
+        }
+
+        &-quantity {
+            min-width: 102px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: monospace;
+            font-size: 20px;
+            justify-content: space-between;
+            button {
+                padding: 10px;
+            }
+
+            &--minus {
+                background-color: #D6C3A3;
+            }
+        }
+    }
+}
+
+.cartoptions {
+    margin-bottom: 20px;
+
+    .row {
+        align-items: center;
+    }
+
+    &__total {
+        h3 {
+            font-size: 2rem;
+            margin: 0;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        button:last-child {
+            background-color: #D6C3A3;
+        }
+    }
+}

@@ -88,3 +88,11 @@ button:focus-visible {
 .woodsplitter-toast .Toastify__toast-icon {
     color: #1c1c1e !important;
 }
+
+button.disabled {
+    background-color: #ccc !important;
+    cursor: not-allowed !important;
+    &:hover {
+        transform: none !important;
+    }
+}

@@ -6,6 +6,8 @@ import { Link, usePage } from '@inertiajs/inertia-react';
 import '../../../scss/SingleProduct.scss';
 import { SingleProductSlider } from '../../widgets/SingleProductSlider';
 import { RandomProductsSlider } from '../../widgets/RandomProductsSlider';
+import { Inertia } from '@inertiajs/inertia';
+import { toast } from 'react-toastify';
 
 const SingleProduct = () => {
     const { product, random } = usePage().props;
@@ -44,17 +46,27 @@ const SingleProduct = () => {
                             style={{ whiteSpace: 'pre-line' }}
                             className="single__info-description">
                                 {product.description}
-                                {`Размер: 10
-                                Размер: 10
-                                Размер: 10
-                                Размер: 10
-                                Размер: 10
-                                Размер: 10`}
                         </p>
                         <button
                             className="single__info-button"
                             onMouseEnter={() => setIsAddToCartButtonHovered(true)}
                             onMouseLeave={() => setIsAddToCartButtonHovered(false)}
+                            onClick={() => {
+                                Inertia.post('/cart/store', {
+                                    product_id: product.id
+                                }, {
+                                    onSuccess: () => {
+                                        toast.success('Product added to cart', {
+                                            className: 'woodsplitter-toast',
+                                        });
+                                    },
+                                    onError: (e) => {
+                                        Object.values(e).flat().forEach(msg => toast.error(msg, {
+                                            className: 'woodsplitter-toast',
+                                        }));
+                                    }
+                                });
+                            }}
                         >
                             Add to cart
                         </button>

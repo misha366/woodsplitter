@@ -26,11 +26,15 @@ Route::get('/catalog/{product}', [ProductController::class, 'show'])->name('sing
 
 // Cart
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
-Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
-Route::post('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
-Route::put('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/store/', [CartController::class, 'store'])->name('cart.store');
+Route::delete('/cart/remove/{productId}', [CartController::class, 'remove'])->name('cart.remove');
+Route::put('/cart/add-one-to-product/', [CartController::class, 'addOneToProduct'])
+    ->name('cart.addOneToProduct');
+Route::put('/cart/remove-one-from-product/', [CartController::class, 'removeOneFromProduct'])
+    ->name('cart.removeOneFromProduct');
 Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 // Checkout
+// !!! Поменять айдишник на uuid
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');

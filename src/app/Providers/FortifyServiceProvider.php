@@ -47,33 +47,5 @@ class FortifyServiceProvider extends ServiceProvider
         // RateLimiter::for('two-factor', function (Request $request) {
         //     return Limit::perMinute(5)->by($request->session()->get('login.id'));
         // });
-
-        Inertia::share('auth', function () {
-            return [
-                'user' => Auth::user(),
-            ];
-        });
-
-        Inertia::share('csrfToken', function () {
-            return [
-                'csrfToken' => csrf_token(),
-            ];
-        });
-
-        Inertia::share('errors', function () {
-
-            $errors = session()->get('errors');
-
-            if (!$errors) {
-                return [];
-            }
-
-            return collect($errors->getBags())
-                ->flatMap(function ($bag) {
-                    return collect($bag->all());
-                })
-                ->values()
-                ->all();
-        });
     }
 }

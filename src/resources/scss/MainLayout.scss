@@ -85,6 +85,28 @@ $primary-color: #A8D5BA;
             height: 1px;
             background: #1c1c1e;
         }
+
+        &-cart {
+            position: relative;
+            &--itemscount {
+                position: absolute;
+                top: -2px;
+                right: -13px;
+                background-color: #D6C3A3;
+                color: #1c1c1e;
+                padding: 0 3px;
+                border-radius: 50%;
+                font-size: 0.6rem;
+                font-weight: 600;
+                transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            &:hover .header__nav-cart--itemscount {
+                background-color: #A8D5BA;
+                transform: scale(1.1);
+            }
+        }
     }
 }
 
